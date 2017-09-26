@@ -8,11 +8,16 @@ GGRaSP can be installed using the install_git command in devtools. However this 
 ```
 R
 >library(devtools)
->install_git("https://github.com/JCVenterInstitute/GGRaSP.git")
+>install_git("https://github.com/JCVenterInstitute/GGRaSP.git", branch="master", credentials = cred_user_pass(username, password))
 >quit()
-git pull https://github.com/JCVenterInstitute/GGRaSP/ggrasp.R
-git pull https://github.com/JCVenterInstitute/GGRaSP/example/
 
+git fetch https://github.com/JCVenterInstitute/GGRaSP/
+From https://github.com/JCVenterInstitute/GGRaSP
+ * branch            HEAD       -> FETCH_HEAD
+
+git checkout -m FETCH_HEAD -- ggrasp.R
+
+git checkout -m FETCH_HEAD -- examples/
 ```
 
 ## Using GGRaSP
@@ -27,7 +32,7 @@ To start with, simply load the library and genome-relationship file, here the Ch
 ```
 >library(ggrasp)
 ># The file is Enter.ANI.mat 
->enter.in.ggrasp <- grasp.load("./examples/Enter.ANI.mat", type="matrix", offset=100, tree.type="complete")
+>enter.in.ggrasp <- ggrasp.load("./examples/Enter.ANI.mat", type="matrix", offset=100, tree.type="complete")
 ```
 Now that the the simularity matrix is loaded in, cluster it using the default values, checkout the cutoff and number of distributions using the summary variable, and visualize the Gaussian Distributions:
 ```
