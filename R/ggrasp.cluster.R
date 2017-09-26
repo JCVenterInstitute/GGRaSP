@@ -91,7 +91,7 @@ ggrasp.cluster = function(ggrasp.data, threshold, num.clusters, z.limit = 1, gmm
 		gmm.orig = data.frame(mu = gmm.first.2$mu, sigma = gmm.first.2$sigma, lambda = gmm.first.2$lambda);
 		
 		gmm.best <- .remove.gmm(gmm.first.2, z.limit, min.lambda);
-		if (left.dist < 1 || left.dist > length(gmm.best@mu) -1)
+		if (left.dist < 1 || left.dist > length(gmm.best$mu) -1)
 		{
 			cat("Gaussian Mixture Model Order Threshold provided (", left.dist, ") is outside the range. Defaulting to 1...\n\n");
 			left.dist = 1;
