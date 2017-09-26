@@ -11,7 +11,18 @@ R
 >library(git2r)
 >install_git("https://github.com/JCVenterInstitute/GGRaSP.git", branch="master", credentials = cred_user_pass(username, password))
 >quit()
+```
 
+if this is not working, it is also the options to download the ggrasp_1.0.tar.gz file from github and install ggrasp from this
+```
+git clone https://github.com/JCVenterInstitute/GGRaSP.git
+R
+>library(devtools)
+>install("./GGRaSP/")
+```
+
+getting the individual files
+```
 git fetch https://github.com/JCVenterInstitute/GGRaSP/
 From https://github.com/JCVenterInstitute/GGRaSP
  * branch            HEAD       -> FETCH_HEAD
@@ -33,7 +44,7 @@ To start with, simply load the library and genome-relationship file, here the Ch
 ```
 >library(ggrasp)
 ># The file is Enter.ANI.mat 
->enter.in.ggrasp <- ggrasp.load(system.file("extdata", "Enter.ANI.mat", package="ggrasp), type="matrix", offset=100, tree.type="complete")
+>enter.in.ggrasp <- ggrasp.load(system.file("extdata", "Enter.ANI.mat", package="ggrasp), file.format="matrix", tree.method="complete", offset=100)
 ```
 Now that the the simularity matrix is loaded in, cluster it using the default values, checkout the cutoff and number of distributions using the summary variable, and visualize the Gaussian Distributions:
 ```
@@ -55,42 +66,42 @@ A list of all the available flags for the scripts are as follows:
 
 ```
 # Input Variables
-        -i, --input <input file name for tab delimited distance matrix with row and column headers, newick file, or aligned multiple fasta file>
-        -t, --type <type of the tree format to makes. Default is 'complete'>    
+		-i, --input <input file name for tab delimited distance matrix with row and column headers, newick file, or aligned multiple fasta file>
+		-t, --type <type of the tree format to makes. Default is 'complete'>    
 		-d, --offset <optional offset to convert a similarity matrix to a distance matrix>
-        -m, --method  <optional method to use for hclust such as complete, single or average or nj to perform neighbor-joining>
-        -v, --verbose <optional verbal threshold: 1 = no output, 2 = text only, 3 = graphics in pdf. Default = 3>
-        -n, --names <optional name file to label the exterior of the tree. Multiple files can be included with a comma between>
-        -r, --ranks <optional input file with ranks of the genes for medoid selection. Ranks should be from 1 (best) to n (worst) in two columns with the genome ID in the first>
+		-m, --method  <optional method to use for hclust such as complete, single or average or nj to perform neighbor-joining>
+		-v, --verbose <optional verbal threshold: 1 = no output, 2 = text only, 3 = graphics in pdf. Default = 3>
+		-n, --names <optional name file to label the exterior of the tree. Multiple files can be included with a comma between>
+		-r, --ranks <optional input file with ranks of the genes for medoid selection. Ranks should be from 1 (best) to n (worst) in two columns with the genome ID in the first>
 
 # Clustering Variables
-        -c, --clusters <optional number of clusters to generate>
-        -h, --threshold <optional threshold to use to cluster the genomes>
-        -k, --keep <optional flag to keep all reference clusters as sub-and show subclusters>
-        -z, --zscore <optional value to combine all gaussian mixtures within this z-score. Default = 1. Use 0 to turn off>
-        -x, --minlambda <optional value used to discard a Gaussian distribution if it has less than this percentage of the total distribution. Default is 0.005>
-        -s, --start <optional value with the minimum number of gmm to examine. Default is 2>
-        -e, --end <optional value with the maximum number of gmm to examine. Default is 10>
-        -p, --packages <optional value with the package to use for the Gaussian mixture model estimate. Default is bgmm. Mixtools also can be used>
+		-c, --clusters <optional number of clusters to generate>
+		-h, --threshold <optional threshold to use to cluster the genomes>
+		-k, --keep <optional flag to keep all reference clusters as sub-and show subclusters>
+		-z, --zscore <optional value to combine all gaussian mixtures within this z-score. Default = 1. Use 0 to turn off>
+		-x, --minlambda <optional value used to discard a Gaussian distribution if it has less than this percentage of the total distribution. Default is 0.005>
+		-s, --start <optional value with the minimum number of gmm to examine. Default is 2>
+		-e, --end <optional value with the maximum number of gmm to examine. Default is 10>
+		-p, --packages <optional value with the package to use for the Gaussian mixture model estimate. Default is bgmm. Mixtools also can be used>
 
 # Output Variables (medoid list is always printed)
-        -o, --output <output file name for html table, pdf plots, cluster and txt files>
-        -y, --plottype <optional flag used to provide the plot format>
+		-o, --output <output file name for html table, pdf plots, cluster and txt files>
+		-y, --plottype <optional flag used to provide the plot format>
 		-l, --layout <optional phylogeny layout such as rectangular, circular, radial and slanted. Default = circular>
 		-a, --metadata <optional input file containing metadata for the genomes to plot on the ring. It should be tab-deleniated>
       
-        -0, --writetable <optional flag used to save the cluster table>
-        -1, --writepseudo <optional flag used to save the psuedo fasta list>
-        -2, --writetree <optional flag used to save the newick style full tree >
-        -3, --writetrimtree <optional flag used to save the cluster table>
-        -4, --writeitol <optional flag used to save an itol style file to view the cluster information>
-        
+		-0, --writetable <optional flag used to save the cluster table>
+		-1, --writepseudo <optional flag used to save the psuedo fasta list>
+		-2, --writetree <optional flag used to save the newick style full tree >
+		-3, --writetrimtree <optional flag used to save the cluster table>
+		-4, --writeitol <optional flag used to save an itol style file to view the cluster information>
+		
 		-5, --plothist <optional flag used to save the histogram with the plot>
-        -6, --plotgmm <optional flag used to save the histogram with the Gaussian distribution overlayed>
-        -7, --plottree <optional flag used to save the full tree plot>
-        -8, --plotclust <optional flag used to save the full tree plot with the clusters highlighted>
-        -9, --plottrim <optional flag used to save the trimmed tree with only the medoids>
-         This script will select sample genome medoids by selecting a treshhold using Gaussian Mixture Models.
+		-6, --plotgmm <optional flag used to save the histogram with the Gaussian distribution overlayed>
+		-7, --plottree <optional flag used to save the full tree plot>
+		-8, --plotclust <optional flag used to save the full tree plot with the clusters highlighted>
+		-9, --plottrim <optional flag used to save the trimmed tree with only the medoids>
+		This script will select sample genome medoids by selecting a treshhold using Gaussian Mixture Models.
 ```
 
 ##Citing GGRaSP
