@@ -443,7 +443,15 @@ plot.ggrasp <- function(x, type, layout = "circular")
 	}
 	if (type=="gmm")
 	{
-		return(.plot_gmm(x@gmm, as.vector(x@dist.mat), (max(x@dist.mat)-min(x@dist.mat))/50, x@h));
+		stp_val = (max(x@dist.mat)-min(x@dist.mat))/50;
+		for (i in 1:length(x@gmm$sigma))
+		{
+			if (stp_val > x@gmm$sigma[i])
+			{
+				stp_val =  x@gmm$sigma[i];
+			}
+		}
+		return(.plot_gmm(x@gmm, as.vector(x@dist.mat), stp_val, x@h));
 	}
 	if (type=="histogram")
 	{
