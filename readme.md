@@ -1,6 +1,6 @@
 # GGRaSP
 
-GGRaSP (Gaussian Genome Representative Selector with Prioritization) is an R-package which can generate and return a reprentative set of genomes from a large group of genomes with a defined relationship. The reprentative set is select either using user-defined cutoff or cluster number values or else *de novo* calculateds based on modeling the genome relationships with a Gaussian Mixture Model. The default value returned is the list of reprentative genomes, but the package also allows for multiple outputs including text files, plots, and trees. To allow for high-throughput analysis, we have included an Rscript file that can run GGRaSP from the command line (though it does require GGRaSP to be installed to the default R location).
+GGRaSP (Gaussian Genome Representative Selector with Prioritization) is an R-package which can generate and return a reprentative set of genomes from a large group of genomes with a defined relationship. The reprentative set is select either using user-defined cutoff or cluster number values or else *de novo* calculates the clusters based on modeling the genome relationships with a Gaussian Mixture Model. The default value returned is the list of reprentative genomes, but the package also allows for multiple outputs including text files, plots, and trees. To allow for high-throughput analysis, we have included an Rscript file that can run GGRaSP from the command line (though it does require GGRaSP to be installed to the default R location).
 
 ## Installing GGRaSP
 
@@ -44,7 +44,7 @@ To start with, simply load the library and genome-relationship file, here the Ch
 ```
 >library(ggrasp)
 ># The file is Enter.ANI.mat 
->enter.in.ggrasp <- ggrasp.load(system.file("extdata", "Enter.ANI.mat", package="ggrasp), file.format="matrix", tree.method="complete", offset=100)
+>enter.in.ggrasp <- ggrasp.load(system.file("extdata", "Enter.ANI.mat", package="ggrasp"), file.format="matrix", tree.method="complete", offset=100)
 ```
 Now that the the simularity matrix is loaded in, cluster it using the default values, checkout the cutoff and number of distributions using the summary variable, and visualize the Gaussian Distributions:
 ```
