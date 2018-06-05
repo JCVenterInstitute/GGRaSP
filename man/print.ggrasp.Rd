@@ -22,15 +22,15 @@ prints formatted information from a class GGRaSP object. Multiple output options
 #Getting the ggrasp object
 Enter.tree <- ggrasp.load(system.file("extdata", "Enter.kSNP.tree", package="ggrasp"), 
 file.format = "tree", rank.file =system.file("extdata", "Enter.kSNP.ranks", package="ggrasp"));
-Enter.tree.cluster <- ggrasp.cluster(Enter.tree)
+\dontrun{Enter.tree.cluster <- ggrasp.cluster(Enter.tree)}
 
 #Default examples: using the initizalized ggrasp object will print the newick tree string 
 print(Enter.tree);
 
 # Using the clustered ggrasp object will print the medoids and their respective clusters
-print(Enter.tree.cluster)
+\dontrun{print(Enter.tree.cluster)}
 #Below are examples of using different output formats and rank levels
-print(Enter.tree.cluster, "tree")
-print(Enter.tree.cluster, "table", 1)
-print(Enter.tree.cluster, "table", 0)
+\dontrun{print(Enter.tree.cluster, "tree")}
+\dontrun{print(Enter.tree.cluster, "table", 1)}
+\dontrun{print(Enter.tree.cluster, "table", 0)}
 }
