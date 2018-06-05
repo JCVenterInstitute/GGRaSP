@@ -107,7 +107,8 @@ A list of all the available flags for the scripts are as follows:
 ##Citing GGRaSP
 
 When using GGRaSP in your analysis, please cite GGRaSP as follows:
-```GGRaSP: a R-package for selecting representative genomes using Gaussian mixture models. Thomas H Clarke, Lauren M Brinkac, Granger Sutton, and Derrick E Fouts. Bioinformatics, bty300, https://doi.org/10.1093/bioinformatics/bty300
+```
+	GGRaSP: a R-package for selecting representative genomes using Gaussian mixture models. Thomas H Clarke, Lauren M Brinkac, Granger Sutton, and Derrick E Fouts. Bioinformatics, bty300, https://doi.org/10.1093/bioinformatics/bty300
 
 
 ```
