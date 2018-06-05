@@ -1,6 +1,8 @@
-#' ggrasp.write
-#' writes formated information from a class GGRaSP object to a file. Multiple output options are available. 
+
+#' @title ggrasp.write
+#' @description writes formated information from a class GGRaSP object to a file. Multiple output options are available. 
 #' 
+#' @param x ggrasp-class object to be written
 #' @param type Format of the data printed, either "tree" (new hampshire extended style), "table" where the medoids or repersentitves are shown in a table format, "list" where the information is shown in a psuedo-fasta format, or "itol" which prints out a file that can be loaded into the itol phylogeny viewer (http://itol.embl.de) which will color the clades of the different clusters
 #' @param rank.level Maximum level of the rank to show. Ignored pre-clustering. After clustering, 0 will show only the medoids, -1 will show all values independent of rank, and any value >= 1 will show all the genomes less than or equal to that rank (including medoids). Default is 0 (only the medoids)
 #' @param file String pointing to file where the data will be saved. If no file is given, the result will be printed out on the screen.
@@ -48,7 +50,7 @@ ggrasp.write <- function(x, file, type, rank.level)
 			if (length(x@medoids) > 0)
 			{
 				itol = paste("TREE_COLORS", "SEPARATOR TAB", "DATA", sep="\n");
-				col1 = as.data.frame(t(col2rgb(rainbow_hcl(max(x@cluster), s= 0.5)))); 
+				col1 = as.data.frame(t(col2rgb(rainbow_hcl(max(x@cluster), start= 0.5)))); 
 				cols = paste("rgba(", paste(col1$red, col1$green, col1$blue, "0.5", sep=","), ")", sep="");
 				m.1 <- mrca(read.tree(text=x@phy))
 				for (i in 1:max(x@cluster))
@@ -215,11 +217,13 @@ ggrasp.write <- function(x, file, type, rank.level)
 	}
 }
 
-#' print.ggrasp
-#' prints formated information from a class GGRaSP object. Multiple output options are available. 
+#' @title print.ggrasp
+#' @description prints formated information from a class GGRaSP object. Multiple output options are available. 
 #' 
+#' @param x ggrasp-class object to be printed
 #' @param type Format of the data printed, either "tree" (new hampshire extended style), "table" where the medoids or repersentitves are shown in a table format, or "list" where the information is shown in a psuedo-fasta format
 #' @param rank.level Maximum level of the rank to show. Ignored pre-clustering. After clustering, 0 will show only the medoids, -1 will show all values independent of rank, and any value >= 1 will show all the genomes less than or equal to that rank (including medoids). Default is 0 (only the medoids)
+#' @param ... ignored
 #'
 #' @examples
 #' #Getting the ggrasp object
@@ -240,10 +244,9 @@ ggrasp.write <- function(x, file, type, rank.level)
 # Making a table with all genomes independent of rank
 #' print(Enter.tree.cluster, "table", 0)
 
-
+#' @method print ggrasp
 #' @export
-print.ggrasp <- function(x, type, rank.level)
-{
+print.ggrasp <- function(x, type, rank.level, ...){
 	if (missing(x))
 	{
 		return();
@@ -398,20 +401,22 @@ print.ggrasp <- function(x, type, rank.level)
 
 
 
-#' plot.ggrasp
-#' plots a class GGRaSP variable either the full tree, a reduced tree, or the gmm.
+#' @title plot.ggrasp
+#' @description plots a class GGRaSP variable either the full tree, a reduced tree, or the gmm.
 #' 
-# '@param x the GGRaSP object that contains the data to be plotted
+#' @param x ggrasp-class object to be plotted
 #' @param type Type of plot generated, either "tree" (the full tree with the clusters shown as grouped leaves), "reduced" (tree with only the medoids shown), "hist" (histogram of the distribution of the distances) or "gmm" (histogram of the distances overlayed with the Gaussian distributions)
 #' @param layout The layout style of the tree, either "circular" (default), "radial", "slanted", "linear" or "rectangular" ("linear" or "rectangular" are the same).
+#' @param ... ignored
 #'
 #' @return A ggplot object containing the plot. It can be printed to standard output or saved using ggsave.
 #' 
+#' @method plot ggrasp
 #' @export
 
 
 
-plot.ggrasp <- function(x, type, layout = "circular")
+plot.ggrasp <- function(x, type, layout = "circular", ...)
 {
 	if (length(x@medoids) == 0)
 	{
@@ -466,16 +471,20 @@ plot.ggrasp <- function(x, type, layout = "circular")
 	}
 }
 
-#' summary.ggrasp
-#' prints a summary of the class GGRaSP variable. Output includes medoids and cutoff value after the clustering
+#' @title summary.ggrasp
+#' @description prints a summary of the class GGRaSP variable. Output includes medoids and cutoff value after the clustering
+#' @param object ggrasp-class object
+#' @param ... ignored
+#' @method summary ggrasp
+
 #' 
 #' @export
 
  
-summary.ggrasp <- function(x)
+summary.ggrasp <- function(object, ...)
 {
-	cat(paste("Contains ", nrow(x@dist.mat), " genomes", sep=""));	
-	if (length(x@rank) > 0)
+	cat(paste("Contains ", nrow(object@dist.mat), " genomes", sep=""));	
+	if (length(object@rank) > 0)
 	{
 		cat(" and is ranked\n");
 	}
@@ -483,9 +492,9 @@ summary.ggrasp <- function(x)
 	{
 		cat("\n");
 	}
-	if (length(x@cluster) > 0)
+	if (length(object@cluster) > 0)
 	{
-		cat(paste("\nContains ", max(x@cluster), " clusters using threshold at ", x@h, "\n", sep=""));
+		cat(paste("\nContains ", max(object@cluster), " clusters using threshold at ", object@h, "\n", sep=""));
 	}
 }
 
@@ -585,7 +594,7 @@ summary.ggrasp <- function(x)
   {
     con.dist <- cophenetic.phylo(phy1);
     tmp <- rownames(con.dist)[rowSums(con.dist==max(con.dist))>0];
-    phy1 = .root_midpoint(phy1, tmp[1], tmp[2])
+    phy1 = .root_midpoint(phy1)
   }
   if (!is.binary(phy1))
   {
@@ -687,19 +696,20 @@ summary.ggrasp <- function(x)
 
 
 .plot_gmm = function(gmm, gmm.x, stp = 0.1, thresh= NULL){
+   count = NULL
   n1 <- as.vector(gmm.x);
   
   df_area <- data.frame(
     dist.id = as.vector(sapply(1:length(gmm$mu), function(x) {sapply(seq(min(n1), max(n1), by=stp), function(y){x})})),
     loc = as.vector(sapply(1:length(gmm$mu), function(x) {sapply(seq(min(n1), max(n1), by=stp), function(y){y})})),
-    den = as.vector(sapply(1:length(gmm$mu), function(x) {sapply(seq(min(n1), max(n1), by=stp), function(y){dnorm(x = y, mean=gmm$mu[x], sd=gmm$sigma[x])*gmm$lambda[x]})})))
+    den = as.vector(sapply(1:length(gmm$mu), function(x) {sapply(seq(min(n1), max(n1), by=stp), function(y){dnorm(x = y, mean=gmm$mu[x], sd=gmm$sigma[x])*gmm$lambda[x]})})));
   
   
-  grph_gmm <- ggplot()+geom_histogram(aes(x = n1, y= ..count..), binwidth= stp)+geom_area(data=df_area, aes(x = loc, y = den*length(n1)*stp, fill=as.factor(dist.id), alpha = 0.5), position="identity");
-  grph_gmm <- grph_gmm + labs(x = "Percent Difference", y = "Number of Genome Pairs", fill="Gaussian Mixture Model")+ guides(alpha="none")
+  grph_gmm <- ggplot2::ggplot()+ggplot2::geom_histogram(aes_string(x = "n1", y= "..count.."), binwidth= stp)+with(df_area, geom_area(data=df_area, aes(x = loc, y = den*length(n1)*stp, fill=as.factor(dist.id), alpha = 0.5), position="identity"));
+  grph_gmm <- grph_gmm + labs(x = "Percent Difference", y = "Number of Genome Pairs", fill="Gaussian Mixture Model")+ guides(alpha="none");
   if (!is.null(thresh))
   {
-    grph_gmm <- grph_gmm + geom_segment(aes(x = thresh, y = 0, xend = thresh, yend = (max(df_area$den)*stp*length(n1))), linetype=2)
+    grph_gmm <- grph_gmm + geom_segment(aes(x = thresh, y = 0, xend = thresh, yend = (max(df_area$den)*stp*length(n1))), linetype=2);
   }
   return(grph_gmm);
 }
@@ -708,11 +718,12 @@ summary.ggrasp <- function(x)
 
 .plot_hist = function(gmm.x, stp = 0.1)
 {
+  count = NULL
   n1 <- as.vector(gmm.x);
 
   
   
-  grph_gmm <- ggplot()+geom_histogram(aes(x = n1, y= ..count..), binwidth= stp);
+  grph_gmm <- ggplot()+geom_histogram(aes_string(x = "n1", y= "..count.."), binwidth= stp);
   grph_gmm <- grph_gmm + labs(x = "Percent Difference", y = "Number of Genome Pairs")
 
   return(grph_gmm);
@@ -722,6 +733,7 @@ summary.ggrasp <- function(x)
 .get_name_line = function(phy_df, name_file=NULL, x_max = 0, num=NULL, id=NULL)
 {
   phy.names <- substring(phy_df$label[phy_df$is.tip==TRUE],0);
+  y_plot_max = max(c(phy_df$y1, phy_df$y2));
   if (!is.null(name_file))
   {
     name.list <- read.table(name_file, sep="\t", stringsAsFactors = F);
@@ -788,7 +800,7 @@ summary.ggrasp <- function(x)
   y_plot_max = sum(phy_df$is.tip)#+sum(phy_df$is.tip)/40;
   x_plot_max_add = max(node.depth.edgelength(phy))/dfr;
   x_plot_max = max(node.depth.edgelength(phy)) + max(node.depth.edgelength(phy))/dfr;
-  p <- ggplot(data=phy_df[phy_df$type == "edge" & phy_df$make==make_type,], aes(x = x1, y= y1, xend=x2, yend=y2))+geom_segment();
+   p <- ggplot2::ggplot() + with(phy_df, ggplot2::geom_segment(data=phy_df[phy_df$type == "edge" & phy_df$make==make_type,], aes(x = x1, y= y1, xend=x2, yend=y2)));
   if (method == "circular" | method == "radial")
   {
     p <- p + coord_polar(theta="y")
@@ -807,11 +819,11 @@ summary.ggrasp <- function(x)
 	if (method == "circular" | method == "radial")
 	{
 		sz = 300/nrow(tip.lab.df);
-		p <- p + geom_text(data = tip.lab.df, aes(x = x1, y = y1, label = label, angle = ang, hjust = hjst), size=sz)
+		p <- p + with(tip.lab.df,  ggplot2::geom_text(data = tip.lab.df, aes(x = x1, y = y1, label = label, angle = ang, hjust = hjst), size=sz))
 	}else
 	{
 		sz = 200/nrow(tip.lab.df);
-		p <- p + geom_text(data = tip.lab.df, aes(x = x1, y = y1, label = label, hjust = -0.1),  size=sz)+ guides(alpha=F, fill=F, size=F)
+		 p <- p +with(tip.lab.df, ggplot2::geom_text(data = tip.lab.df, aes(x = x1, y = y1, label = label, hjust = -0.1),  size=sz)+ guides(alpha=F, fill=F, size=F))
 	}
 	p <- p + xlim(c(0, max(phy_df$x1)+max(phy_df$x1)/20));
   }
@@ -822,7 +834,7 @@ summary.ggrasp <- function(x)
 	if (is.ultra & !is.null(thresh))
 	{
 		cat("Drawing ultrametric line at threshold...\n\n")
-		p <- p + geom_segment(aes(x = max(phy_df$x2)-thresh, y = 0, xend = max(phy_df$x2)-thresh, yend = max(phy_df$y2)+1), linetype=2)
+		p <- p + ggplot2::geom_segment(aes(x = max(phy_df$x2)-thresh, y = 0, xend = max(phy_df$x2)-thresh, yend = max(phy_df$y2)+1), linetype=2)
 	}
     cnt = 1;
     clust_df = NULL;
@@ -863,15 +875,17 @@ summary.ggrasp <- function(x)
         }
       }
     }
-    if (is.null(name_file))
+
+	if (is.null(name_file))
     {
-      p <- p + geom_rect(data=clust_df, aes(xmin = x1, ymin = y1, xmax=x2, ymax = y2, alpha = 0.5), fill="grey50")
+      p <- p + with(clust_df,  ggplot2::geom_rect(data=clust_df, aes(xmin = x1, ymin = y1, xmax=x2, ymax = y2, alpha = 0.5), fill="grey50"))
     }
     if (!is.ultra & !is.null(thresh))
 	{
-		p <- p + geom_segment(data=clust_df, aes(x = x1 - thresh, y = y1, xend = x1-thresh, yend = y2), linetype=2)
+		p <- p +  with(clust_df, ggplot2::geom_segment(data=clust_df, aes(x = x1 - thresh, y = y1, xend = x1-thresh, yend = y2), linetype=2))
 	}
-    if (!is.null(name_file))
+
+	if (!is.null(name_file))
     {
       name.l1 <- strsplit(name_file, ",");
       name.df = NULL;
@@ -879,7 +893,7 @@ summary.ggrasp <- function(x)
       {
         if (is.null(name.df))
         {
-          tmp.lst <- get_name_line(phy_df, name.l1[[1]][j], x_plot_max, paste("Row ", as.character(j), sep="", collapse=""), paste("Row ", as.character(j),":", name.l1[[1]][j], collapse="", sep=""));
+          tmp.lst <- .get_name_line(phy_df, name.l1[[1]][j], x_plot_max, paste("Row ", as.character(j), sep="", collapse=""), paste("Row ", as.character(j),":", name.l1[[1]][j], collapse="", sep=""));
           
           name.df <-tmp.lst[[1]];
           names(tmp.lst[[2]]) <- paste("Row ", as.character(j), ": ", names(tmp.lst[[2]]), sep="");
@@ -887,7 +901,7 @@ summary.ggrasp <- function(x)
           x_plot_max = x_plot_max + 2 * x_plot_max_add;
         }
         else{
-          tmp.lst <- get_name_line(phy_df, name.l1[[1]][j], x_plot_max, paste("Row ", as.character(j), sep="", collapse=""), paste("Row ", as.character(j),":", name.l1[[1]][j], collapse="", sep=""))
+          tmp.lst <- .get_name_line(phy_df, name.l1[[1]][j], x_plot_max, paste("Row ", as.character(j), sep="", collapse=""), paste("Row ", as.character(j),":", name.l1[[1]][j], collapse="", sep=""))
           
           name.df <-rbind(name.df, tmp.lst[[1]]);
           names(tmp.lst[[2]]) <- paste("Row ", as.character(j), ": ", names(tmp.lst[[2]]), sep="");
@@ -902,12 +916,13 @@ summary.ggrasp <- function(x)
         p_old = p;
         #boxes for 
         
-        p <- p + geom_rect(data=name.df[name.df$num.hit >1,], aes(xmin = x1, ymin = y1, xmax=x2+x_plot_max_add *0.9, ymax=y2, fill = num), alpha = 0.5);
+        p <- p + with(name.df, ggplot2::geom_rect(data=name.df[name.df$num.hit >1,], aes(xmin = x1, ymin = y1, xmax= x2+x_plot_max_add *0.9, ymax= y2, fill =  num), alpha = 0.5));
         #labels for all
         
-        p <- p + geom_text(data=name.df, aes(x = x1, y = (y1+y2)/2, label=paste(toupper(substring(id, 0, 1)), substring(id,2,3), sep=""), angle=ang2, hjust=hjst2), size=2.5, fontface="bold");
+        p <- p + with(name.df, ggplot2::geom_text(data=name.df, aes(x = x1, y = (y1+y2)/2, label=paste(toupper(substring(id, 0, 1)), substring(id,2,3), sep=""), angle=ang2, hjust=hjst2), size=2.5, fontface="bold"));
         #ring labels
-        if (is.null(ring_labels))
+
+		if (is.null(ring_labels))
         {
           arc.text.df = .make_arc_text(name_file, x_plot_max, x_plot_max_add, y_plot_max);
         }else
@@ -925,25 +940,27 @@ summary.ggrasp <- function(x)
           }
 
         }
-        p <- p + geom_text(data=arc.text.df, aes(x = x.1, y = y.1, label=substring(chr,0), xend=x.1, yend=y.1, angle = ang), size=4, hjust = 0, vjust = 0, fontface="bold");
-        p <- p + scale_fill_manual(label=unique(name.df$num), values = rainbow(length(unique(name.df$num))))
-        p <- p + geom_rect(data=clust_df, aes(xmin = x1, ymin = y1, xmax=x_plot_max, ymax = y2, alpha = 0.5), fill="grey50")
-        
+        p <- p + with(arc.text.df, ggplot2::geom_text(data=arc.text.df, aes(x = x.1, y = y.1, label=substring(chr,0), xend=x.1, yend=y.1, angle = ang), size=4, hjust = 0, vjust = 0, fontface="bold"));
+        p <- p + ggplot2::scale_fill_manual(label=unique(name.df$num), values = rainbow(length(unique(name.df$num))))
+        p <- p + with(clust_df, ggplot2::geom_rect(data=clust_df, aes(xmin = x1, ymin = y1, xmax=x_plot_max, ymax = y2, alpha = 0.5), fill="grey50"))
+
       }
     }
-    p <- p +geom_segment(data=clust_df, aes(x = x_plot_max, y = (y1), xend=x_plot_max, yend = y2))
+    p <- p +with(clust_df, ggplot2::geom_segment(data=clust_df, aes(x = x_plot_max, y = (y1), xend=x_plot_max, yend = y2)))
     
     if (method == "circular" | method == "radial")
     {
-      p <- p + geom_text(data=clust_df, aes(x = x_plot_max, y = (y1+y2)/2, label=label_med, hjust =hjst, angle = ang));
+      p <- p + with(clust_df, ggplot2::geom_text(data=clust_df, aes(x = x_plot_max, y = (y1+y2)/2, label=label_med, hjust =hjst, angle = ang)));
     }else
     {
-      p <- p + geom_text(data=clust_df, aes(x = x_plot_max, y = (y1+y2)/2, label=label_med, hjust =-0.1));
+      p <- p + with(clust_df, ggplot2::geom_text(data=clust_df, aes(x = x_plot_max, y = (y1+y2)/2, label=label_med, hjust =-0.1)));
     }
-    p <- p+ guides(alpha=F, fill=F)+labs(fill="Outside Ring Categories", color="Outside Ring Derivation Files")
+    p <- p+ ggplot2::guides(alpha=F, fill=F)+labs(fill="Outside Ring Categories", color="Outside Ring Derivation Files")
+
   }
 
-  p <- p + theme(axis.line = element_blank(), panel.grid.major = element_blank(), panel.grid.minor = element_blank() , panel.border=element_blank(), panel.background = element_blank(), axis.ticks.y = element_blank(), axis.ticks.x = element_blank())
+  p <- p + ggplot2::theme(axis.line = element_blank(), panel.grid.major = element_blank(), panel.grid.minor = element_blank() , panel.border=element_blank(), panel.background = element_blank(), axis.ticks.y = element_blank(), axis.ticks.x = element_blank())
+
   return(p);
 }
 
@@ -1000,8 +1017,8 @@ summary.ggrasp <- function(x)
 .print.tree.all <- function(ggrasp.data, rank.level)
 {
 	phy2 <- read.tree(text = ggrasp.data@phy);
-	phy2 = drop.tip(phy2, phy2$tip.label[phy2$tip.label %in% names(ggrasp.data@rank)[ggrasp.data@rank > rank.level] & !(phy$tip.label %in% ggrasp.data@medoids)]);
-	near.neigh = .find_nearest_neighbor(x, keep.rank = rank.level);
+	phy2 = drop.tip(phy2, phy2$tip.label[phy2$tip.label %in% names(ggrasp.data@rank)[ggrasp.data@rank > rank.level] & !(phy2$tip.label %in% ggrasp.data@medoids)]);
+	near.neigh = .find_nearest_neighbor(ggrasp.data, keep.rank = rank.level);
 	for (tip.id in phy2$tip.label)
 	{
 		med.num = sum(near.neigh[,2]==tip.id);
@@ -1016,7 +1033,7 @@ summary.ggrasp <- function(x)
 .find_nearest_neighbor = function(x, keep.rank)
 {
 	good.list <- names(x@rank)[x@rank <= keep.rank | names(x@rank) %in% x@medoids];
-	match.list <- names(x@rank)[x@rank > keep.rank & !(names(x@rank) %in% medoids)];
+	match.list <- names(x@rank)[x@rank > keep.rank & !(names(x@rank) %in% x@medoids)];
 	ret.neigh <- cbind(match.list, rep(NA, length(match.list)));
 	for (i in match.list)
 	{

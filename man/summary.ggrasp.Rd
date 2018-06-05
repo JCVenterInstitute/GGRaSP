@@ -2,12 +2,15 @@
 % Please edit documentation in R/utils.R
 \name{summary.ggrasp}
 \alias{summary.ggrasp}
-\title{summary.ggrasp
-prints a summary of the class GGRaSP variable. Output includes medoids and cutoff value after the clustering}
+\title{summary.ggrasp}
 \usage{
-\method{summary}{ggrasp}(x)
+\method{summary}{ggrasp}(object, ...)
+}
+\arguments{
+\item{object}{ggrasp-class object}
+
+\item{...}{ignored}
 }
 \description{
-summary.ggrasp
 prints a summary of the class GGRaSP variable. Output includes medoids and cutoff value after the clustering
 }

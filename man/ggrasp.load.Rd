@@ -29,17 +29,15 @@ ggrasp.load() initializes a class GGRaSP object from a file containing either a 
 # Also included is a ranking file to prioritize closed Enterobactor genomes
 
 library(ggrasp);
-Enter.tree <- ggrasp.load(system.file("extdata", "Enter.kSNP.tree", package="ggrasp"), file.format = "tree", 
-rank.file =system.file("extdata", "Enter.kSNP.ranks", package="ggrasp"));
+Enter.tree <- ggrasp.load(system.file("extdata", "Enter.kSNP.tree", package="ggrasp"), file.format = "tree", rank.file =system.file("extdata", "Enter.kSNP.ranks", package="ggrasp"));
 
-#Other options include loading by fasta file:
-Enter.tree <- ggrasp.load(system.file("extdata", "Enter.kSNP.fasta", package="ggrasp"), file.format = "fasta", 
-rank.file =system.file("extdata", "Enter.kSNP.ranks", package="ggrasp"))
+# Other options include loading by fasta file:
+Enter.tree <- ggrasp.load(system.file("extdata", "Enter.kSNP2.fasta", package="ggrasp"), file.format = "fasta", rank.file =system.file("extdata", "Enter.kSNP.ranks", package="ggrasp"))
 
-and by distance matrix. Since this distance matrix is actually percent identity, we will us an offset of 100
-Enter.tree <- ggrasp.load(system.file("extdata", "Enter.kSNP.matrix", package="ggrasp"), file.format = "tree", 
-rank.file =system.file("extdata", "Enter.kSNP.ranks", package="ggrasp"), offset = 100)
+# and by distance matrix. Since this distance matrix is actually percent identity, we will us an offset of 100
+Enter.tree <- ggrasp.load(system.file("extdata", "Enter.ANI.mat", package="ggrasp"), file.format = "matrix", rank.file =system.file("extdata", "Enter.kSNP.ranks", package="ggrasp"), offset = 100)
 
+# Use summary() to examine the data loaded
 summary(Enter.tree)
 
 #Use plot() to see the tree

@@ -2,18 +2,20 @@
 % Please edit documentation in R/utils.R
 \name{print.ggrasp}
 \alias{print.ggrasp}
-\title{print.ggrasp
-prints formated information from a class GGRaSP object. Multiple output options are available.}
+\title{print.ggrasp}
 \usage{
-\method{print}{ggrasp}(x, type, rank.level)
+\method{print}{ggrasp}(x, type, rank.level, ...)
 }
 \arguments{
+\item{x}{ggrasp-class object to be printed}
+
 \item{type}{Format of the data printed, either "tree" (new hampshire extended style), "table" where the medoids or repersentitves are shown in a table format, or "list" where the information is shown in a psuedo-fasta format}
 
 \item{rank.level}{Maximum level of the rank to show. Ignored pre-clustering. After clustering, 0 will show only the medoids, -1 will show all values independent of rank, and any value >= 1 will show all the genomes less than or equal to that rank (including medoids). Default is 0 (only the medoids)}
+
+\item{...}{ignored}
 }
 \description{
-print.ggrasp
 prints formated information from a class GGRaSP object. Multiple output options are available.
 }
 \examples{

@@ -19,8 +19,7 @@
 #'
 #' #Loading the tree 
 #' library(ggrasp);
-#' Enter.tree <- ggrasp.load(system.file("extdata", "Enter.kSNP.tree", package="ggrasp"), file.format = "tree", 
-#' rank.file =system.file("extdata", "Enter.kSNP.ranks", package="ggrasp"));
+#' Enter.tree <- ggrasp.load(system.file("extdata", "Enter.kSNP.tree", package="ggrasp"), file.format = "tree", rank.file =system.file("extdata", "Enter.kSNP.ranks", package="ggrasp"));
 #'
 #' #Clustering the tree using a threshold estimated by Gaussian Mixture Models (GMMs)
 #' Enter.tree.cluster <- ggrasp.cluster(Enter.tree)
@@ -187,7 +186,6 @@ ggrasp.addRanks = function(x, rank.file)
 #' @description recalculates a threshold and the resulting cluster using the previously defined Gaussian Mixture Model and provied threshold-determining factors. Requires the ggrasp.cluster to already have run 
 #' 
 #' @param x the GGRaSP object for which the ranks will be added.
-#' @param num.clusters Create this number of clusters independent of the cluster. 
 #' @param z.limit All Gaussian distributions with means within this number of standard deviations will be reduced to only the larger distribution. Defaults to 1. Set to 0 to keep all non-overlapping distributions.
 #' @param min.lambda All Gaussian distributions with lambda value (proportion of the total distribution) below this value are removed before calculating the threshold. Default is 0.005. Set to 0 to keep all. 
 #' @param left.dist Number giving the number Gaussian distribution model immediatly to the left of the threshold used. 1 is the default. Only value between 1 and k-1 where k is the total number of number of Gaussian distributions. 
@@ -210,12 +208,12 @@ ggrasp.addRanks = function(x, rank.file)
 #' #Re-clustering the tree using a threshold estimated by the GMMs but without the distribution cleaning (i.e. removing the overlapping and low count distributions)
 #' Enter.tree.reclust <- ggrasp.recluster(Enter.tree.cluster, z.limit=0, min.lambda = 0)
 #'
-#' 
+#
 #' @export
 
 ggrasp.recluster = function(x, z.limit=1, min.lambda=0.005, left.dist = 1)
 {
-	if (missing("x") || class(ggrasp.data) != "ggrasp")
+	if (missing("x") || class(x) != "ggrasp")
 	{
 		cat("");
 		return();
@@ -228,7 +226,7 @@ ggrasp.recluster = function(x, z.limit=1, min.lambda=0.005, left.dist = 1)
 	else
 	{
 		gmm.best <- .remove.gmm(x@gmm.orig, z.limit, min.lambda);
-		if (left.dist < 1 || left.dist > length(gmm.best@mu) -1)
+		if (left.dist < 1 || left.dist > length(gmm.best$mu) -1)
 		{
 			cat("Gaussian Mixture Model Order Threshold provided (", left.dist, ") is outside the range. Defaulting to 1...\n\n");
 			left.dist = 1;
@@ -244,7 +242,7 @@ ggrasp.recluster = function(x, z.limit=1, min.lambda=0.005, left.dist = 1)
 		clusters <- .get_tree_clusters(read.tree(text= x@phy), thresh.hold);
 		x@h <- thresh.hold;
 		x@cluster <- clusters;
-		x@medoids <- sapply((1:max(clusters)), .clust.medoid, ggrasp.data@dist.mat, clusters, ggrasp.data@rank)
+		x@medoids <- sapply((1:max(clusters)), .clust.medoid, x@dist.mat, clusters, x@rank)
 		if (exists("gmm.out"))
 		{
 			x@gmm <- gmm.out;

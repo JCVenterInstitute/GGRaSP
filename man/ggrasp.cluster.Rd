@@ -40,8 +40,7 @@ ggrasp.cluster() clusters the genomes in a GGRaSP class variable and assigns the
 
 #Loading the tree 
 library(ggrasp);
-Enter.tree <- ggrasp.load(system.file("extdata", "Enter.kSNP.tree", package="ggrasp"), file.format = "tree", 
-rank.file =system.file("extdata", "Enter.kSNP.ranks", package="ggrasp"));
+Enter.tree <- ggrasp.load(system.file("extdata", "Enter.kSNP.tree", package="ggrasp"), file.format = "tree", rank.file =system.file("extdata", "Enter.kSNP.ranks", package="ggrasp"));
 
 #Clustering the tree using a threshold estimated by Gaussian Mixture Models (GMMs)
 Enter.tree.cluster <- ggrasp.cluster(Enter.tree)

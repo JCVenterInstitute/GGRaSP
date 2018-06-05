@@ -1,3 +1,17 @@
+library(ggplot2);
+library(mixtools);
+library(ape);
+library(bgmm);
+library(colorspace);
+library(methods);
+
+#' @import ggplot2
+#' @import mixtools
+#' @import ape
+#' @import bgmm
+#' @import colorspace
+#' @import methods
+
 #' @title ggrasp.load
 #' @description ggrasp.load() initializes a class GGRaSP object from a file containing either a tree, a distance matrix or a multi-fasta alignment. The returned object can subsequently be clustered using ggrasp.cluster().
 #' 
@@ -14,18 +28,15 @@
 #' # Also included is a ranking file to prioritize closed Enterobactor genomes
 #' 
 #' library(ggrasp);
-#' Enter.tree <- ggrasp.load(system.file("extdata", "Enter.kSNP.tree", package="ggrasp"), file.format = "tree", 
-#' rank.file =system.file("extdata", "Enter.kSNP.ranks", package="ggrasp"));
+#' Enter.tree <- ggrasp.load(system.file("extdata", "Enter.kSNP.tree", package="ggrasp"), file.format = "tree", rank.file =system.file("extdata", "Enter.kSNP.ranks", package="ggrasp"));
 #'
-#' #Other options include loading by fasta file:
-#' Enter.tree <- ggrasp.load(system.file("extdata", "Enter.kSNP.fasta", package="ggrasp"), file.format = "fasta", 
-#' rank.file =system.file("extdata", "Enter.kSNP.ranks", package="ggrasp"))
-#' 
-#' and by distance matrix. Since this distance matrix is actually percent identity, we will us an offset of 100
-#' Enter.tree <- ggrasp.load(system.file("extdata", "Enter.kSNP.matrix", package="ggrasp"), file.format = "tree", 
-#' rank.file =system.file("extdata", "Enter.kSNP.ranks", package="ggrasp"), offset = 100)
+#' # Other options include loading by fasta file:
+#' Enter.tree <- ggrasp.load(system.file("extdata", "Enter.kSNP2.fasta", package="ggrasp"), file.format = "fasta", rank.file =system.file("extdata", "Enter.kSNP.ranks", package="ggrasp"))
 #'
-#Use summary() to examine the data loaded
+#' # and by distance matrix. Since this distance matrix is actually percent identity, we will us an offset of 100
+#' Enter.tree <- ggrasp.load(system.file("extdata", "Enter.ANI.mat", package="ggrasp"), file.format = "matrix", rank.file =system.file("extdata", "Enter.kSNP.ranks", package="ggrasp"), offset = 100)
+#'
+#' # Use summary() to examine the data loaded
 #' summary(Enter.tree)
 #'
 #' #Use plot() to see the tree
@@ -33,7 +44,7 @@
 #' @export
 
 
- 
+
 ggrasp.load = function(file, file.format, rank.file, offset, tree.method = "complete")
  {
 	phy = NULL;
@@ -152,6 +163,7 @@ ggrasp.load = function(file, file.format, rank.file, offset, tree.method = "comp
 	dist_mat <- as.dist(distance_matrix);
 	accept_hclust <- c("complete", "average", "single", "nj")
 	tree.method = tolower(tree.method)
+	cat(paste(tree.method, "\n"));
 	if (is.null(phy))
 	{
 		if (tree.method %in% accept_hclust)
@@ -168,6 +180,7 @@ ggrasp.load = function(file, file.format, rank.file, offset, tree.method = "comp
 				
 			}else
 			{
+				cat(summary(dist_mat));
 				hc_phy <- hclust(dist_mat, method=tree.method)
 				phy <- as.phylo(hc_phy);
 				phy = .root_midpoint(phy);
@@ -223,6 +236,9 @@ ggrasp.load = function(file, file.format, rank.file, offset, tree.method = "comp
 	return(ggrasp.1);
 }
 
+
+
+
 #' An S4 class representing the GGRaSP data and output
 #'
 #' @slot dist.mst The distance matrix showing the distances between different genomes
@@ -238,6 +254,8 @@ ggrasp.load = function(file, file.format, rank.file, offset, tree.method = "comp
 setClass("ggrasp", representation(dist.mat="matrix", phy = "character", rank="vector", cluster="vector", h = "numeric", medoids="vector", gmm="data.frame", gmm.orig="data.frame"));
 
 setMethod("show", "ggrasp", function(object)summary(object))
+
+
 
 #
 .root_midpoint = function(phy1)

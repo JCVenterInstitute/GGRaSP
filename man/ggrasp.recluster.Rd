@@ -14,8 +14,6 @@ ggrasp.recluster(x, z.limit = 1, min.lambda = 0.005, left.dist = 1)
 \item{min.lambda}{All Gaussian distributions with lambda value (proportion of the total distribution) below this value are removed before calculating the threshold. Default is 0.005. Set to 0 to keep all.}
 
 \item{left.dist}{Number giving the number Gaussian distribution model immediatly to the left of the threshold used. 1 is the default. Only value between 1 and k-1 where k is the total number of number of Gaussian distributions.}
-
-\item{num.clusters}{Create this number of clusters independent of the cluster.}
 }
 \value{
 A GGRaSP object with the recalculated thresholds and the medoids using a previously generated GMM
@@ -40,6 +38,5 @@ print(Enter.tree.cluster)
 
 #Re-clustering the tree using a threshold estimated by the GMMs but without the distribution cleaning (i.e. removing the overlapping and low count distributions)
 Enter.tree.reclust <- ggrasp.recluster(Enter.tree.cluster, z.limit=0, min.lambda = 0)
-
 
 }
