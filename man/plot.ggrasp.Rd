@@ -4,7 +4,7 @@
 \alias{plot.ggrasp}
 \title{plot.ggrasp}
 \usage{
-\method{plot}{ggrasp}(x, type, layout = "circular", ...)
+plot.ggrasp(x, type, layout = "circular", ...)
 }
 \arguments{
 \item{x}{ggrasp-class object to be plotted}
