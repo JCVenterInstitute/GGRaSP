@@ -22,7 +22,6 @@
 #' # ITOL web phylogeny visualizer (http://itol.embl.de/) 
 #' ggrasp.write(Enter.tree.cluster, type="itol", file="tree.itol.clade.txt");
 #
-
 #' @export
 
 ggrasp.write <- function(x, file, type, rank.level)
@@ -412,7 +411,8 @@ print.ggrasp <- function(x, type, rank.level, ...){
 #' @param ... ignored
 #'
 #' @return A ggplot object containing the plot. It can be printed to standard output or saved using ggsave.
-#' 
+#' @method plot ggrasp
+#'
 #' @export
 
 
