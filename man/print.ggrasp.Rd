@@ -9,14 +9,14 @@
 \arguments{
 \item{x}{ggrasp-class object to be printed}
 
-\item{type}{Format of the data printed, either "tree" (new hampshire extended style), "table" where the medoids or repersentitves are shown in a table format, or "list" where the information is shown in a psuedo-fasta format}
+\item{type}{Format of the data printed, either "tree" (new hampshire extended style), "table" where the medoids or representative are shown in a table format, or "list" where the information is shown in a pseudo-fasta format}
 
 \item{rank.level}{Maximum level of the rank to show. Ignored pre-clustering. After clustering, 0 will show only the medoids, -1 will show all values independent of rank, and any value >= 1 will show all the genomes less than or equal to that rank (including medoids). Default is 0 (only the medoids)}
 
 \item{...}{ignored}
 }
 \description{
-prints formated information from a class GGRaSP object. Multiple output options are available.
+prints formatted information from a class GGRaSP object. Multiple output options are available.
 }
 \examples{
 #Getting the ggrasp object

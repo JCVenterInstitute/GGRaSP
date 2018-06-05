@@ -1,9 +1,9 @@
 
 #' @title ggrasp.write
-#' @description writes formated information from a class GGRaSP object to a file. Multiple output options are available. 
+#' @description writes formatted information from a class GGRaSP object to a file. Multiple output options are available. 
 #' 
 #' @param x ggrasp-class object to be written
-#' @param type Format of the data printed, either "tree" (new hampshire extended style), "table" where the medoids or repersentitves are shown in a table format, "list" where the information is shown in a psuedo-fasta format, or "itol" which prints out a file that can be loaded into the itol phylogeny viewer (http://itol.embl.de) which will color the clades of the different clusters
+#' @param type Format of the data printed, either "tree" (New Hampshire extended style), "table" where the medoids or representative are shown in a table format, "list" where the information is shown in a pseudo-fasta format, or "itol" which prints out a file that can be loaded into the itol phylogeny viewer (http://itol.embl.de) which will color the clades of the different clusters
 #' @param rank.level Maximum level of the rank to show. Ignored pre-clustering. After clustering, 0 will show only the medoids, -1 will show all values independent of rank, and any value >= 1 will show all the genomes less than or equal to that rank (including medoids). Default is 0 (only the medoids)
 #' @param file String pointing to file where the data will be saved. If no file is given, the result will be printed out on the screen.
 #'
@@ -218,10 +218,10 @@ ggrasp.write <- function(x, file, type, rank.level)
 }
 
 #' @title print.ggrasp
-#' @description prints formated information from a class GGRaSP object. Multiple output options are available. 
+#' @description prints formatted information from a class GGRaSP object. Multiple output options are available. 
 #' 
 #' @param x ggrasp-class object to be printed
-#' @param type Format of the data printed, either "tree" (new hampshire extended style), "table" where the medoids or repersentitves are shown in a table format, or "list" where the information is shown in a psuedo-fasta format
+#' @param type Format of the data printed, either "tree" (new hampshire extended style), "table" where the medoids or representative are shown in a table format, or "list" where the information is shown in a pseudo-fasta format
 #' @param rank.level Maximum level of the rank to show. Ignored pre-clustering. After clustering, 0 will show only the medoids, -1 will show all values independent of rank, and any value >= 1 will show all the genomes less than or equal to that rank (including medoids). Default is 0 (only the medoids)
 #' @param ... ignored
 #'

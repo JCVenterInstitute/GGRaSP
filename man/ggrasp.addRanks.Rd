@@ -12,7 +12,7 @@ ggrasp.addRanks(x, rank.file)
 \item{rank.file}{string pointing to a file containing the ranks}
 }
 \value{
-A GGRaSP object where the ranks have been enirely redefined with the ranks in rank.file
+A GGRaSP object where the ranks have been entirely redefined with the ranks in rank.file
 }
 \description{
 adds a rank file to a GGRaSP object. If clusters have been defined, the medoids will be re-defined

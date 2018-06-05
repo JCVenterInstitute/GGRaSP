@@ -23,15 +23,15 @@ ggrasp.cluster(ggrasp.data, threshold, num.clusters, z.limit = 1,
 
 \item{min.lambda}{All Gaussian distributions with lambda value (proportion of the total distribution) below this value are removed before calculating the threshold. Default is 0.005. Set to 0 to keep all.}
 
-\item{run.type}{String giving the package to use to get the mixture model. Currently "bgmm" (default) and mixtools" are implimented.}
+\item{run.type}{String giving the package to use to get the mixture model. Currently "bgmm" (default) and mixtools" are implemented.}
 
-\item{left.dist}{Number giving the number Gaussian distribution model immediatly to the left of the threshold used. 1 is the default. Only value between 1 and k-1 where kR is the total number of number of Gaussian distributions.}
+\item{left.dist}{Number giving the number Gaussian distribution model immediately to the left of the threshold used. 1 is the default. Only value between 1 and k-1 where k is the total number of number of Gaussian distributions.}
 }
 \value{
 Returns a class GGRaSP variable with the clusters and medoids assigned. In cases where the Gaussian Mixture Model was used to estimate the cutoff threshold, the descriptive values of the different distributions is also stored
 }
 \description{
-ggrasp.cluster() clusters the genomes in a GGRaSP class variable and assigns the most repersentitive genome in each cluster after accounting for rank as a medoid.
+ggrasp.cluster() clusters the genomes in a GGRaSP class variable and assigns the most representative genome in each cluster after accounting for rank as a medoid.
 }
 \examples{
 #The following data is from Chavda et al 2016 which phylotyped Enterobacter genomes

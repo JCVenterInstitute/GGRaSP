@@ -1,5 +1,5 @@
 #' @title ggrasp.cluster
-#' @description ggrasp.cluster() clusters the genomes in a GGRaSP class variable and assigns the most repersentitive genome in each cluster after accounting for rank as a medoid.
+#' @description ggrasp.cluster() clusters the genomes in a GGRaSP class variable and assigns the most representative genome in each cluster after accounting for rank as a medoid.
 #' 
 #' 
 #' @param ggrasp.data  Required. If neither a threshold or a num.cluster is given, a mixed model of Gaussian distributions is used to estimate a threshold to use the cluster.
@@ -9,8 +9,8 @@
 #' @param gmm.max Maximum number of Gaussian distributions to examine. Has to be at least 2. 10 is the default
 #' @param z.limit All Gaussian distributions with means within this number of standard deviations will be reduced to only the larger distribution. Defaults to 1. Set to 0 to keep all non-overlapping distributions.
 #' @param min.lambda All Gaussian distributions with lambda value (proportion of the total distribution) below this value are removed before calculating the threshold. Default is 0.005. Set to 0 to keep all. 
-#' @param run.type String giving the package to use to get the mixture model. Currently "bgmm" (default) and mixtools" are implimented.
-#' @param left.dist Number giving the number Gaussian distribution model immediatly to the left of the threshold used. 1 is the default. Only value between 1 and k-1 where kR is the total number of number of Gaussian distributions. 
+#' @param run.type String giving the package to use to get the mixture model. Currently "bgmm" (default) and mixtools" are implemented.
+#' @param left.dist Number giving the number Gaussian distribution model immediately to the left of the threshold used. 1 is the default. Only value between 1 and k-1 where k is the total number of number of Gaussian distributions. 
 #' 
 #' @return Returns a class GGRaSP variable with the clusters and medoids assigned. In cases where the Gaussian Mixture Model was used to estimate the cutoff threshold, the descriptive values of the different distributions is also stored
 #' @examples #The following data is from Chavda et al 2016 which phylotyped Enterobacter genomes
@@ -146,7 +146,7 @@ ggrasp.cluster = function(ggrasp.data, threshold, num.clusters, z.limit = 1, gmm
 #' @param x the GGRaSP object for which the ranks will be added.
 #' @param rank.file string pointing to a file containing the ranks 
 #'
-#' @return A GGRaSP object where the ranks have been enirely redefined with the ranks in rank.file
+#' @return A GGRaSP object where the ranks have been entirely redefined with the ranks in rank.file
 #' 
 #' @export
 
@@ -183,12 +183,12 @@ ggrasp.addRanks = function(x, rank.file)
 }
 
 #' @title ggrasp.recluster 
-#' @description recalculates a threshold and the resulting cluster using the previously defined Gaussian Mixture Model and provied threshold-determining factors. Requires the ggrasp.cluster to already have run 
+#' @description recalculates a threshold and the resulting cluster using the previously defined Gaussian Mixture Model and provided threshold-determining factors. Requires the ggrasp.cluster to already have run 
 #' 
 #' @param x the GGRaSP object for which the ranks will be added.
 #' @param z.limit All Gaussian distributions with means within this number of standard deviations will be reduced to only the larger distribution. Defaults to 1. Set to 0 to keep all non-overlapping distributions.
 #' @param min.lambda All Gaussian distributions with lambda value (proportion of the total distribution) below this value are removed before calculating the threshold. Default is 0.005. Set to 0 to keep all. 
-#' @param left.dist Number giving the number Gaussian distribution model immediatly to the left of the threshold used. 1 is the default. Only value between 1 and k-1 where k is the total number of number of Gaussian distributions. 
+#' @param left.dist Number giving the number Gaussian distribution model immediately to the left of the threshold used. 1 is the default. Only value between 1 and k-1 where k is the total number of number of Gaussian distributions. 
 #'
 #' @return A GGRaSP object with the recalculated thresholds and the medoids using a previously generated GMM 
 #' @examples #The following data is from Chavda et al 2016 which phylotyped Enterobacter genomes

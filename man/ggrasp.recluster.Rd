@@ -13,13 +13,13 @@ ggrasp.recluster(x, z.limit = 1, min.lambda = 0.005, left.dist = 1)
 
 \item{min.lambda}{All Gaussian distributions with lambda value (proportion of the total distribution) below this value are removed before calculating the threshold. Default is 0.005. Set to 0 to keep all.}
 
-\item{left.dist}{Number giving the number Gaussian distribution model immediatly to the left of the threshold used. 1 is the default. Only value between 1 and k-1 where k is the total number of number of Gaussian distributions.}
+\item{left.dist}{Number giving the number Gaussian distribution model immediately to the left of the threshold used. 1 is the default. Only value between 1 and k-1 where k is the total number of number of Gaussian distributions.}
 }
 \value{
 A GGRaSP object with the recalculated thresholds and the medoids using a previously generated GMM
 }
 \description{
-recalculates a threshold and the resulting cluster using the previously defined Gaussian Mixture Model and provied threshold-determining factors. Requires the ggrasp.cluster to already have run
+recalculates a threshold and the resulting cluster using the previously defined Gaussian Mixture Model and provided threshold-determining factors. Requires the ggrasp.cluster to already have run
 }
 \examples{
 #The following data is from Chavda et al 2016 which phylotyped Enterobacter genomes

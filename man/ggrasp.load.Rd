@@ -7,15 +7,15 @@
 ggrasp.load(file, file.format, rank.file, offset, tree.method = "complete")
 }
 \arguments{
-\item{file}{File containing the tree, matrix or seqeunce alignment used to initialize the ggrasp object. Required.}
+\item{file}{File containing the tree, matrix or sequence alignment used to initialize the ggrasp object. Required.}
 
 \item{file.format}{The format the file is in, with tree, fasta and matrix accepted. If not given the program makes a guess.}
 
-\item{rank.file}{File containing the ranks of genomes in a tab-deliniated file with the genome in column 1 and the rank in column 2. The rank is a non-negative number.}
+\item{rank.file}{File containing the ranks of genomes in a tab-delineated file with the genome in column 1 and the rank in column 2. The rank is a non-negative number.}
 
 \item{offset}{Numeric representing a perfect match. Default is 0.}
 
-\item{tree.method}{The method used to make the tree from a distance matrix. "Complete" (Default), "Average", "Single", and "nj" (Nieghbor Joining) are currently available.}
+\item{tree.method}{The method used to make the tree from a distance matrix. "Complete" (Default), "Average", "Single", and "nj" (Neighbor Joining) are currently available.}
 }
 \value{
 Returns a class GGRaSP variable
