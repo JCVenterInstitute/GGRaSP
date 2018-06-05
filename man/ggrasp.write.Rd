@@ -20,14 +20,16 @@ writes formatted information from a class GGRaSP object to a file. Multiple outp
 }
 \examples{
 #Getting the ggrasp object
-Enter.tree <- ggrasp.load(system.file("extdata", "Enter.kSNP.tree", package="ggrasp"), file.format = "tree", 
-rank.file =system.file("extdata", "Enter.kSNP.ranks", package="ggrasp"));
+Enter.tree <- ggrasp.load(system.file("extdata", "Enter.kSNP.tree", package="ggrasp"), 
+file.format = "tree", rank.file =system.file("extdata", "Enter.kSNP.ranks", package="ggrasp"));
 Enter.tree.cluster <- ggrasp.cluster(Enter.tree)
 
-#Default examples: using the initizalized ggrasp object will write the newick tree string to "tree.nwk" 
+#Default examples: using the initizalized ggrasp object will 
+#write the newick tree string to "tree.nwk"
 ggrasp.write(Enter.tree, type="tree", file="tree.nwk");
 
 # Using the clustered ggrasp object will write a text file with the clusters saved as an ITOL clade
-# In conjecture with the phylogeny, this is readable by ITOL web phylogeny visualizer (http://itol.embl.de/) 
+# In conjecture with the phylogeny, this is readable by 
+# ITOL web phylogeny visualizer (http://itol.embl.de/) 
 ggrasp.write(Enter.tree.cluster, type="itol", file="tree.itol.clade.txt");
 }

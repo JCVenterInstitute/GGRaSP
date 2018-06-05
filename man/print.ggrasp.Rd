@@ -20,8 +20,8 @@ prints formatted information from a class GGRaSP object. Multiple output options
 }
 \examples{
 #Getting the ggrasp object
-Enter.tree <- ggrasp.load(system.file("extdata", "Enter.kSNP.tree", package="ggrasp"), file.format = "tree", 
-rank.file =system.file("extdata", "Enter.kSNP.ranks", package="ggrasp"));
+Enter.tree <- ggrasp.load(system.file("extdata", "Enter.kSNP.tree", package="ggrasp"), 
+file.format = "tree", rank.file =system.file("extdata", "Enter.kSNP.ranks", package="ggrasp"));
 Enter.tree.cluster <- ggrasp.cluster(Enter.tree)
 
 #Default examples: using the initizalized ggrasp object will print the newick tree string 

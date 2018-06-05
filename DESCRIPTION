@@ -1,6 +1,6 @@
 Package: ggrasp
 Type: Package
-Title: Gaussian-based Genome Representative Selector with Prioritization
+Title: Gaussian-Based Genome Representative Selector with Prioritization
 Version: 1.0
 Authors@R: person("Thomas", "Clarke", email = "tclarke@jcvi.org", role = c("aut", "cre"))
 Description: Given a group of genomes and their relationship with each other, GGRaSP clusters the genomes and selects the most representative members of each cluster. Additional data can be provided to the prioritize certain genomes. The results can be printed out as a list or a new phylogeny with graphs of the trees and distance distributions also available.

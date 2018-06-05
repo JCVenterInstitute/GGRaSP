@@ -27,7 +27,8 @@ recalculates a threshold and the resulting cluster using the previously defined 
 
 #Loading the tree 
 library(ggrasp);
-Enter.tree <- ggrasp.load(system.file("extdata", "Enter.kSNP.tree", package="ggrasp"), file.format = "tree");
+tree.file <- system.file("extdata", "Enter.kSNP.tree", package="ggrasp")
+Enter.tree <- ggrasp.load(tree.file, file.format = "tree");
 
 #Clustering the tree using a threshold estimated by Gaussian Mixture Models (GMMs)
 Enter.tree.cluster <- ggrasp.cluster(Enter.tree)
@@ -36,7 +37,8 @@ Enter.tree.cluster <- ggrasp.cluster(Enter.tree)
 #Use print to get a list of the medoids selected
 print(Enter.tree.cluster)
 
-#Re-clustering the tree using a threshold estimated by the GMMs but without the distribution cleaning (i.e. removing the overlapping and low count distributions)
+#Re-clustering the tree using a threshold estimated by the GMMs but without the distribution
+#cleaning (i.e. removing the overlapping and low count distributions)
 Enter.tree.reclust <- ggrasp.recluster(Enter.tree.cluster, z.limit=0, min.lambda = 0)
 
 }

@@ -19,7 +19,9 @@
 #'
 #' #Loading the tree 
 #' library(ggrasp);
-#' Enter.tree <- ggrasp.load(system.file("extdata", "Enter.kSNP.tree", package="ggrasp"), file.format = "tree", rank.file =system.file("extdata", "Enter.kSNP.ranks", package="ggrasp"));
+#' tree.file <- system.file("extdata", "Enter.kSNP.tree", package="ggrasp")
+#' rank.file.in <- system.file("extdata", "Enter.kSNP.ranks", package="ggrasp")
+#' Enter.tree <- ggrasp.load(tree.file, file.format = "tree", rank.file = rank.file.in);
 #'
 #' #Clustering the tree using a threshold estimated by Gaussian Mixture Models (GMMs)
 #' Enter.tree.cluster <- ggrasp.cluster(Enter.tree)
@@ -28,13 +30,15 @@
 #' #Use print to get a list of the medoids selected
 #' print(Enter.tree.cluster)
 #'
-#' #Re-clustering the tree using a threshold estimated by the GMMs but without the distrribution cleaning (i.e. removing the overlapping and low count distributions)
+#' #Re-clustering the tree using a threshold estimated by the GMMs but without the distribution
+#' #cleaning (i.e. removing the overlapping and low count distributions)
 #' Enter.tree.reclust <- ggrasp.recluster(Enter.tree.cluster, z.limit=0, min.lambda = 0)
 #'
 #' #Use plot to examine the tree with the clusters highlighted and the medoid genome names on the edge
 #' plot(Enter.tree.cluster)
 #'
-#' #Additional printing and plotting options are availible with plot() and print(). For more information refer to ?plot.ggrasp and ?print.ggrasp
+#' #Additional printing and plotting options are availible with plot() and print(). 
+#' #For more information refer to ?plot.ggrasp and ?print.ggrasp
 #' @export
 
 
@@ -196,7 +200,8 @@ ggrasp.addRanks = function(x, rank.file)
 #'
 #' #Loading the tree 
 #' library(ggrasp);
-#' Enter.tree <- ggrasp.load(system.file("extdata", "Enter.kSNP.tree", package="ggrasp"), file.format = "tree");
+#' tree.file <- system.file("extdata", "Enter.kSNP.tree", package="ggrasp")
+#' Enter.tree <- ggrasp.load(tree.file, file.format = "tree");
 #'
 #' #Clustering the tree using a threshold estimated by Gaussian Mixture Models (GMMs)
 #' Enter.tree.cluster <- ggrasp.cluster(Enter.tree)
@@ -205,7 +210,8 @@ ggrasp.addRanks = function(x, rank.file)
 #' #Use print to get a list of the medoids selected
 #' print(Enter.tree.cluster)
 #'
-#' #Re-clustering the tree using a threshold estimated by the GMMs but without the distribution cleaning (i.e. removing the overlapping and low count distributions)
+#' #Re-clustering the tree using a threshold estimated by the GMMs but without the distribution
+#' #cleaning (i.e. removing the overlapping and low count distributions)
 #' Enter.tree.reclust <- ggrasp.recluster(Enter.tree.cluster, z.limit=0, min.lambda = 0)
 #'
 #
