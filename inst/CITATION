@@ -1,0 +1,21 @@
+citHeader("To cite GGRaSP in publications use:")
+
+citEntry(entry = "Article",
+  title        = "GGRaSP: a R-package for selecting representative genomes using Gaussian mixture models",
+  author       = personList(as.person("Thomas H Clarke"),
+                   as.person("Lauren M Brinkac"),
+                   as.person("Granger Sutton"),
+                   as.person("Derrick E Fouts")),
+  journal      = "Bioinformatics",
+  day          = "14",
+  month        = "April",
+  year         = "2018",
+  number       = "bty300",
+  url          = "https://doi.org/10.1093/bioinformatics/bty300",
+
+  textVersion  =
+  paste("Thomas H. Clarke, Lauren M. Brinkac, Granger Sutton, and Derrick E Fouts (2018).",
+        "GGRaSP: a R-package for selecting representative genomes using Gaussian mixture models.",
+        "Bioinformatics, bty300.",
+        "URL  https://doi.org/10.1093/bioinformatics/bty300.")
+)

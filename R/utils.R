@@ -11,16 +11,16 @@
 #' #Getting the ggrasp object
 #' Enter.tree <- ggrasp.load(system.file("extdata", "Enter.kSNP.tree", package="ggrasp"), 
 #' file.format = "tree", rank.file =system.file("extdata", "Enter.kSNP.ranks", package="ggrasp"));
-#' \dontrun{Enter.tree.cluster <- ggrasp.cluster(Enter.tree)}
+#' \donttest{Enter.tree.cluster <- ggrasp.cluster(Enter.tree)}
 #'
 #' #Default examples: using the initizalized ggrasp object will 
 #' #write the newick tree string to "tree.nwk"
-#' ggrasp.write(Enter.tree, type="tree", file="tree.nwk");
+#' ggrasp.write(Enter.tree, type="tree", file=file.path(tempdir(), "tree.nwk"));
 #' 
 #' # Using the clustered ggrasp object will write a text file with the clusters saved as an ITOL clade
 #' # In conjecture with the phylogeny, this is readable by 
 #' # ITOL web phylogeny visualizer (http://itol.embl.de/) 
-#' \dontrun{ggrasp.write(Enter.tree.cluster, type="itol", file="tree.itol.clade.txt");}
+#' \donttest{ggrasp.write(Enter.tree.cluster, type="itol", file=file.path(tempdir(), "tree.itol.clade.txt"));}
 #
 #' @export
 
@@ -230,20 +230,20 @@ ggrasp.write <- function(x, file, type, rank.level)
 #' #Getting the ggrasp object
 #' Enter.tree <- ggrasp.load(system.file("extdata", "Enter.kSNP.tree", package="ggrasp"), 
 #' file.format = "tree", rank.file =system.file("extdata", "Enter.kSNP.ranks", package="ggrasp"));
-#' \dontrun{Enter.tree.cluster <- ggrasp.cluster(Enter.tree)}
+#' \donttest{Enter.tree.cluster <- ggrasp.cluster(Enter.tree)}
 #'
 #' #Default examples: using the initizalized ggrasp object will print the newick tree string 
 #' print(Enter.tree);
 #' 
 #' # Using the clustered ggrasp object will print the medoids and their respective clusters
-#' \dontrun{print(Enter.tree.cluster)}
+#' \donttest{print(Enter.tree.cluster)}
 #
 #' #Below are examples of using different output formats and rank levels
-#' \dontrun{print(Enter.tree.cluster, "tree")}
+#' \donttest{print(Enter.tree.cluster, "tree")}
 # Making a table with all the medoids and top-ranked genomes that are non-medoids
-#' \dontrun{print(Enter.tree.cluster, "table", 1)}
+#' \donttest{print(Enter.tree.cluster, "table", 1)}
 # Making a table with all genomes independent of rank
-#' \dontrun{print(Enter.tree.cluster, "table", 0)}
+#' \donttest{print(Enter.tree.cluster, "table", 0)}
 
 #' @method print ggrasp
 #' @export

@@ -50,7 +50,7 @@ library(methods);
 #' summary(Enter.in)
 #'
 #' #Use plot() to see the tree
-#' \dontrun{plot(Enter.in)}
+#' \donttest{plot(Enter.in)}
 #' @export
 
 
