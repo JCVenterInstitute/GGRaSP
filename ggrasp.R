@@ -106,7 +106,6 @@ usage = paste (
   "\n",
   "\n");
 
-is.binary = is.binary.tree;
 if(!length(opt$input))
 {
   
@@ -277,7 +276,7 @@ if (!is.null(opt$zscore))
 {
 	z.score = opt$zscore;
 }
-if(is.null(opt$cutoff_num) && is.null(opt$threshold))
+if(is.null(opt$clusters) && is.null(opt$threshold))
 {
 		gg.2 <- ggrasp.cluster(gg.1, gmm.start=g.start, gmm.max=g.end, z.limit=z.score, run.type=run.type.in)
 

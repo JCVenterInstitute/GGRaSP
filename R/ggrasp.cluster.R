@@ -121,7 +121,7 @@ ggrasp.cluster = function(ggrasp.data, threshold, num.clusters, z.limit = 1, gmm
 		if (missing("threshold") & !missing("num.clusters"))
 		{
 			clusters = .get_tree_clusters_with_num(read.tree(text=ggrasp.data@phy), num.clusters);
-			thresh.hold = max(sapply(1:max(clusters), function(x) {max(ggrasp.data@dist.mat[names(clusters)[clusters==x], names(clusters)[clusters==x]])})); 
+			thresh.hold = max(sapply(1:max(clusters), function(x) {max(ggrasp.data@dist.mat[rownames(ggrasp.data@dist.mat) %in% names(clusters)[clusters==x], rownames(ggrasp.data@dist.mat) %in% names(clusters)[clusters==x]])})); 
 		}
 		if (!missing("threshold") & missing("num.clusters"))
 		{

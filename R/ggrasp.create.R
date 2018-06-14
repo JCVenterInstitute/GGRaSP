@@ -1,9 +1,4 @@
-library(ggplot2);
-library(mixtools);
-library(ape);
-library(bgmm);
-library(colorspace);
-library(methods);
+
 
 #' @import ggplot2
 #' @import mixtools
@@ -57,6 +52,13 @@ library(methods);
 
 ggrasp.load = function(file, file.format, rank.file, offset, tree.method = "complete")
  {
+	
+requireNamespace("ggplot2");
+requireNamespace("mixtools");
+requireNamespace("ape");
+requireNamespace("bgmm");
+requireNamespace("colorspace");
+requireNamespace("methods");
 	phy = NULL;
 	if (!exists("is.binary", mode="function"))
 	{
