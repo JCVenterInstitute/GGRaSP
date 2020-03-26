@@ -22,8 +22,6 @@
 #                                                                             #
 ###############################################################################
 ###############################################################################
-oldPaths = .libPaths()
-.libPaths(c("/usr/local/devel/ANNOTATION/tclarke/R/x86_64-pc-linux-gnu-library/3.2/", oldPaths));
 library(getopt); #reading in parameters
 library(ggplot2);
 library(ggrasp);
