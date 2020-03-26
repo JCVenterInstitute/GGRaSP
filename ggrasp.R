@@ -22,9 +22,12 @@
 #                                                                             #
 ###############################################################################
 ###############################################################################
-
+oldPaths = .libPaths()
+.libPaths(c("/usr/local/devel/ANNOTATION/tclarke/R/x86_64-pc-linux-gnu-library/3.2/", oldPaths));
 library(getopt); #reading in parameters
+library(ggplot2);
 library(ggrasp);
+library(ape)
 library(methods);
 
 #copied from sample_medioids.R
@@ -106,6 +109,7 @@ usage = paste (
   "\n",
   "\n");
 
+is.binary = is.binary.tree;
 if(!length(opt$input))
 {
   
@@ -122,11 +126,12 @@ if (!length(opt$output))
 	OutputFileName <- opt$output;
 }
 
+meta.info = "";
 if (!is.null(opt$metainfo))
 {
-	if (file.exist(opt$metainfo))
+	if (file.exists(opt$metainfo))
 	{
-		meta.info <- read.table(opt$metainfo, sep="\t", header=T, stringsAsFactors=F, row.names = 1);
+		meta.info <- opt$metainfo;
 	}else
 	{ 
 		cat(paste("\nCannot find metainfo file ", opt$metainfo, ". Skipping this step\n\n", sep=""));
@@ -217,7 +222,13 @@ if (!is.null(opt$ranks))
 {
   RankNameFile = opt$ranks;
 }
-gg.1 <- ggrasp.load(file=in.file, file.format=in.format, offset=as.numeric(offset.val), tree.method=hclust_m, rank.file=RankNameFile)
+AnnotFile = meta.info;
+if (!is.null(opt$offset)) {
+	gg.1 <- ggrasp.load(file=in.file, file.format=in.format, offset=as.numeric(offset.val), tree.method=hclust_m, rank.file=RankNameFile)#, annotation=meta.info)
+}else
+{
+	gg.1 <- ggrasp.load(file=in.file, file.format=in.format, tree.method=hclust_m, rank.file=RankNameFile) #, annotation=meta.info)
+}
 if(is.null(opt$input_newick_file))
 {
 	write(gg.1@phy, file=paste(OutputFileName, "tree", "nwk", sep="."))
@@ -294,9 +305,9 @@ if(is.null(opt$clusters) && is.null(opt$threshold))
   {	
 	if (verbosity > 1)
 	{
-		cat(paste("Getting the top ", opt$clusters, " clades by walking down the tree..\n\n"));
+		cat(paste("Getting the top ", opt$cluster, " clades by walking down the tree..\n\n"));
 	}
-	clusters = as.numeric(opt$clusters)
+	clusters = as.numeric(opt$cluster)
 	gg.2 <- ggrasp.cluster(gg.1, num.clusters = clusters)
     if (verbosity > 1)
 	{
@@ -309,7 +320,7 @@ if(is.null(opt$clusters) && is.null(opt$threshold))
 	gg.2 <- ggrasp.cluster(gg.1, threshold = thrsh)
 	if (verbosity > 1)
 	{
-		cat(paste(as.character(max(gg.2@clusters)), " clusters made using threshold of " , thrsh,"\n\n", sep="")); 
+		cat(paste(as.character(max(gg.2@cluster)), " clusters made using threshold of " , thrsh,"\n\n", sep="")); 
 	}
   }
 }
@@ -332,35 +343,53 @@ if (!is.null(opt$plottype))
 
 if(!is.null(opt$writetable))
 {
-	
+	if (opt$writetable == TRUE)
+	{
+		cat("Here\n");
+		opt$writetable = 0;
+	}
 	file.name <- paste(OutputFileName, "table", "txt", sep=".");
-	write(capture.output(print(gg.2, "table", opt$writetable)), file.name);
+	ggrasp.write(x = gg.2, type = "table", rank.level = opt$writetable, file=file.name);
 }
 
 if(!is.null(opt$writetree))
 {
+	if (opt$writetree == TRUE)
+	{
+		opt$writetree = 0;
+	}
 	
 	file.name <- paste(OutputFileName, "tree", "txt", sep=".");
-	write(capture.output(print(gg.1, "tree", opt$writetree)), file.name);
+	ggrasp.write(x = gg.1, type = "tree", file=file.name);
 }
 
 if(!is.null(opt$writetrimtree))
 {
+	if (opt$writetrimtree == TRUE)
+	{
+		opt$writetrimtree = 0;
+	}
 	
 	file.name <- paste(OutputFileName, "tree", "trim", "txt", sep=".");
-	write(capture.output(print(gg.2, "tree", opt$writetree)), file.name);
+	ggrasp.write(x = gg.2, type = "tree", rank.level = opt$writetrimtree, file=file.name);
 }
 
 if(!is.null(opt$writeitol))
 {
-	
+	if (opt$writeitol == TRUE)
+	{
+		opt$writeitol = 0;
+	}
 	file.name <- paste(OutputFileName, "itol", "txt", sep=".");
-	ggrasp.write(gg.2, "tree", file=file.name);
+	ggrasp.write(gg.2, "itol", file=file.name);
 }
 
 if(!is.null(opt$writepseudo))
 {
-	
+	if (opt$writepseudo == TRUE)
+	{
+		opt$writepseudo = 0;
+	}
 	file.name <- paste(OutputFileName, "pfasta", "txt", sep=".");
 	write(capture.output(print(gg.2, "list", opt$writetable)), file.name);
 }
@@ -370,13 +399,20 @@ write(gg.2@medoids, file.name);
 
 if(!is.null(opt$plothist))
 {
+	if (opt$plothist == TRUE)
+	{
+		opt$plothist = 0;
+	}
+	cat(paste("Plotting Histogram\n\n"));
 	
 	file.name <- paste(OutputFileName, "hist", plottype, sep=".");
-	ggsave(plot(gg.2, "hist"), file = file.name, device=plottype);
+	ggsave(plot(gg.2, "histogram"), file = file.name, device=plottype);
 }
 
 if(!is.null(opt$plottree))
 {
+	cat(paste("Plotting Tree\n\n"));
+
 	
 	file.name <- paste(OutputFileName, "tree", plottype, sep=".");
 	ggsave(plot(gg.1, "tree"), file = file.name, device=plottype);
@@ -384,14 +420,15 @@ if(!is.null(opt$plottree))
 
 if(!is.null(opt$plotclust))
 {
-	
-	file.name <- paste(OutputFileName, "tree", plottype, sep=".");
+		cat(paste("Plotting Cluster Tree\n\n"));
+
+	file.name <- paste(OutputFileName, "clusttree", plottype, sep=".");
 	ggsave(plot(gg.2, "tree"), file = file.name, device=plottype);
 }
 
 if(!is.null(opt$plotgmm))
 {
-	
+	cat(paste("Plotting GMM\n\n"));
 	file.name <- paste(OutputFileName, "gmm", plottype, sep=".");
 	ggsave(plot(gg.2, "gmm"), file = file.name, device=plottype);
 }
@@ -400,7 +437,8 @@ if(!is.null(opt$plotgmm))
 
 if(!is.null(opt$plottrim))
 {
-	
+	cat(paste("Plotting Trimmed Tree\n\n"));
+
 	file.name <- paste(OutputFileName, "trimmed", plottype, sep=".");
 	ggsave(plot(gg.2, "trimmed"), file = file.name, device=plottype);
 }
