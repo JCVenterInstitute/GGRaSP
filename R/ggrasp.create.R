@@ -45,7 +45,7 @@
 #' summary(Enter.in)
 #'
 #' #Use plot() to see the tree
-#' #plot(Enter.in)
+#' \\donttest{plot(Enter.in)}
 #' @export
 
 
