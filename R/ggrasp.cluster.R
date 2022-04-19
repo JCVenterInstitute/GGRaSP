@@ -467,11 +467,20 @@ ggrasp.recluster = function(x, z.limit=1, min.lambda=0.005, left.dist = 1)
   cat(paste("Run with # ", i, " Gaussian Distribution\n", sep=""));
   if (run.type == "mixtools")
   {
-	old <- normalmixEM(n1, k = i)
+	old <- try(normalmixEM(n1, k = i))
+	if(class(old) != "mixEM" )
+		{
+			cat("Normal Mixture Failed")
+			break;
+		}
 	}
 	else
 	{
-		old <- unsupervised(n1, k = i)
+		old <- try(unsupervised(n1, k = i))
+		if(class(old) != "mModel" ){
+			cat("Normal Mixture Failed")
+			break;
+		}
 	}
   #the previous gaussian mixture model
   orig <- old;
@@ -497,8 +506,11 @@ ggrasp.recluster = function(x, z.limit=1, min.lambda=0.005, left.dist = 1)
 	}
 	else
 	{
-		new <- unsupervised(n1, k = i)
-
+		new <- try(unsupervised(n1, k = i))
+		if(class(new) != "mModel" ){
+			cat("Normal Mixture Failed")
+			break;
+		}
 		j1 <- new$likelihood - old$likelihood;
 	}
 	if (!is.null(j1))
