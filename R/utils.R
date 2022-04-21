@@ -597,7 +597,7 @@ summary.ggrasp <- function(object, ...)
     tmp <- rownames(con.dist)[rowSums(con.dist==max(con.dist))>0];
     phy1 = .root_midpoint(phy1)
   }
-  if (!is.binary(phy1))
+  if (!is.binary.tree(phy1))
   {
 	phy1 <- multi2di(phy1);
   }

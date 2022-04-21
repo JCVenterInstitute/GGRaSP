@@ -278,7 +278,7 @@ ggrasp.recluster = function(x, z.limit=1, min.lambda=0.005, left.dist = 1)
       return(NULL);
     }
   }
-  if (!is.binary.tree(nj_tree))
+  if (!is.binary(nj_tree))
   {
     cat("\n\nThis function only works with binary trees...\n\nMaking a binary tree by randomly resolving tree...\n\n");
 	nj_tree = multi2di(nj_tree);
@@ -467,19 +467,17 @@ ggrasp.recluster = function(x, z.limit=1, min.lambda=0.005, left.dist = 1)
   cat(paste("Run with # ", i, " Gaussian Distribution\n", sep=""));
   if (run.type == "mixtools")
   {
-	old <- try(normalmixEM(n1, k = i))
+	old <- try(normalmixEM(n1, k = i), silent="T")
 	if(class(old) != "mixEM" )
 		{
-			cat("Normal Mixture Failed")
-			break;
+			cat("Normal Mixture Failed\n")
 		}
 	}
 	else
 	{
-		old <- try(unsupervised(n1, k = i))
-		if(class(old) != "mModel" ){
-			cat("Normal Mixture Failed")
-			break;
+		old <- try(unsupervised(n1, k = i));
+		if(! "mModel" %in% class(old)){
+			cat("Normal Mixture Failed\n")
 		}
 	}
   #the previous gaussian mixture model
@@ -492,26 +490,33 @@ ggrasp.recluster = function(x, z.limit=1, min.lambda=0.005, left.dist = 1)
   for (i in (start.iter+1):max.iter)
   {
 	cat(paste("Run with # ", i, " Gaussian Distribution\n", sep=""));
-    
+    qt = 0;
 	if (run.type == "mixtools")
 	{
 		# mu = seq(min(n1), max(n1), (max(n1)-min(n1))/(i-1))
-		new <- normalmixEM(n1, k = i, verb = F, maxrestarts=5);
+		new <- tryCatch(normalmixEM(n1, k = i, verb = F, maxrestarts=5));
 		if(class(new) != "mixEM" )
 		{
-			cat("Normal Mixture Failed")
-			break;
+			cat("Normal Mixture Failed. Stopping..\n")
+			new = old;
+			qt = 1;
 		}
 		j1 <- new$loglik - old$loglik;
 	}
 	else
 	{
-		new <- try(unsupervised(n1, k = i))
-		if(class(new) != "mModel" ){
-			cat("Normal Mixture Failed")
-			break;
+		new <- try(unsupervised(n1, k = i), silent=TRUE)
+		if(! "mModel" %in% class(new)){
+			cat("Normal Mixture Failed. Stopping...\n");
+			new = old;
+			qt = 1;
 		}
-		j1 <- new$likelihood - old$likelihood;
+		else{
+			j1 <- new$likelihood - old$likelihood;
+		}
+	}
+	if (qt == 1){
+		break;
 	}
 	if (!is.null(j1))
 	{
