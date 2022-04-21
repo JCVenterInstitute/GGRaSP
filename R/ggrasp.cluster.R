@@ -266,9 +266,9 @@ ggrasp.recluster = function(x, z.limit=1, min.lambda=0.005, left.dist = 1)
 #subtrees using by cuting at the value given. Requires a rooted tree
 .get_tree_clusters = function(nj_tree, thrsh)
 {
-  if (class(nj_tree) != "phylo")
+  if (!is(nj_tree, "phylo"))
   {
-    if(class(nj_tree) == "hclust")
+    if(is(nj_tree,"hclust"))
     {
       nj_tree = as.phylo(nj_tree);
     }
@@ -468,15 +468,15 @@ ggrasp.recluster = function(x, z.limit=1, min.lambda=0.005, left.dist = 1)
   if (run.type == "mixtools")
   {
 	old <- try(normalmixEM(n1, k = i), silent="T")
-	if(class(old) != "mixEM" )
+	if(!is(old,"mixEM") )
 		{
 			cat("Normal Mixture Failed\n")
 		}
 	}
 	else
 	{
-		old <- try(unsupervised(n1, k = i));
-		if(! "mModel" %in% class(old)){
+		old <- try(unsupervised(n1, k = i), silent="T");
+		if(!is(old,"mModel")){
 			cat("Normal Mixture Failed\n")
 		}
 	}
@@ -494,8 +494,8 @@ ggrasp.recluster = function(x, z.limit=1, min.lambda=0.005, left.dist = 1)
 	if (run.type == "mixtools")
 	{
 		# mu = seq(min(n1), max(n1), (max(n1)-min(n1))/(i-1))
-		new <- tryCatch(normalmixEM(n1, k = i, verb = F, maxrestarts=5));
-		if(class(new) != "mixEM" )
+		new <- try(normalmixEM(n1, k = i, verb = F, maxrestarts=5), silent="T");
+		if(!is(new,"mixEM"))
 		{
 			cat("Normal Mixture Failed. Stopping..\n")
 			new = old;
@@ -506,7 +506,7 @@ ggrasp.recluster = function(x, z.limit=1, min.lambda=0.005, left.dist = 1)
 	else
 	{
 		new <- try(unsupervised(n1, k = i), silent=TRUE)
-		if(! "mModel" %in% class(new)){
+		if(!is(new,"mModel")){
 			cat("Normal Mixture Failed. Stopping...\n");
 			new = old;
 			qt = 1;
