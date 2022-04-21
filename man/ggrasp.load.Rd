@@ -48,5 +48,5 @@ Enter.in <- ggrasp.load(mat.file, file.format = "matrix", rank.file =rank.file.i
 summary(Enter.in)
 
 #Use plot() to see the tree
-\\\donttest{plot(Enter.in)}
+\donttest{plot(Enter.in)}
 }

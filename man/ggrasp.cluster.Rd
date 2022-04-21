@@ -45,18 +45,18 @@ rank.file.in <- system.file("extdata", "Enter.kSNP.ranks", package="ggrasp")
 Enter.tree <- ggrasp.load(tree.file, file.format = "tree", rank.file = rank.file.in)
 
 #Clustering the tree using a threshold estimated by Gaussian Mixture Models (GMMs)
-\\\donttest{Enter.tree.cluster <- ggrasp.cluster(Enter.tree)}
+\donttest{Enter.tree.cluster <- ggrasp.cluster(Enter.tree)}
 
 
 #Use print to get a list of the medoids selected
-\\\donttest{print(Enter.tree.cluster)}
+\donttest{print(Enter.tree.cluster)}
 
 #Re-clustering the tree using a threshold estimated by the GMMs but without the distribution
 #cleaning (i.e. removing the overlapping and low count distributions)
-\\\donttest{Enter.tree.reclust <- ggrasp.recluster(Enter.tree.cluster, z.limit=0, min.lambda = 0)}
+\donttest{Enter.tree.reclust <- ggrasp.recluster(Enter.tree.cluster, z.limit=0, min.lambda = 0)}
 
 #Use plot to examine the tree with the clusters highlighted and the medoid genome names on the edge
-\\\donttest{plot(Enter.tree.cluster)}
+\donttest{plot(Enter.tree.cluster)}
 
 #Additional printing and plotting options are availible with plot() and print(). 
 #For more information refer to ?plot.ggrasp and ?print.ggrasp
