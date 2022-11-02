@@ -389,7 +389,7 @@ if(!is.null(opt$writepseudo))
 		opt$writepseudo = 0;
 	}
 	file.name <- paste(OutputFileName, "pfasta", "txt", sep=".");
-	write(capture.output(print(gg.2, "list", opt$writetable)), file.name);
+	ggrasp.write(gg.2, type = "list", rank.level = opt$writetable, file= file.name);
 }
 
 file.name <- paste(OutputFileName, "medoids", "txt", sep=".");
