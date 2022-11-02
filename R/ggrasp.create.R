@@ -60,9 +60,9 @@ requireNamespace("bgmm");
 requireNamespace("colorspace");
 requireNamespace("methods");
 	phy = NULL;
-	if (!exists("is.binary", mode="function"))
+	if (!exists("is.binary.tree", mode="function"))
 	{
-		is.binary <- is.binary.tree;
+		is.binary.tree <- is.binary;
 	}
 	if (missing(file))
 	{

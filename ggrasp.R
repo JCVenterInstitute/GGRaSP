@@ -107,7 +107,7 @@ usage = paste (
   "\n",
   "\n");
 
-is.binary = is.binary.tree;
+is.binary.tree = is.binary;
 if(!length(opt$input))
 {
   

@@ -278,7 +278,7 @@ ggrasp.recluster = function(x, z.limit=1, min.lambda=0.005, left.dist = 1)
       return(NULL);
     }
   }
-  if (!is.binary.tree(nj_tree))
+  if (!is.binary(nj_tree))
   {
     cat("\n\nThis function only works with binary trees...\n\nMaking a binary tree by randomly resolving tree...\n\n");
 	nj_tree = multi2di(nj_tree);
