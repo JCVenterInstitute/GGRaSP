@@ -104,7 +104,20 @@ A list of all the available flags for the scripts are as follows:
 		This script will select sample genome medoids by selecting a treshhold using Gaussian Mixture Models.
 ```
 
-##Citing GGRaSP
+### Potential Trobuleshooting
+
+We have observed instances where the cutoff calculated by the Gaussian Mixture model and reported by GGRaSP for the dataset does not appear to make sense. We suggest examining the Gaussian Mixture Module and distance histogram plot (plot(x, 'gmm') in R or -6 is the GGRaSP.R). If the GMM does not match the histogram (such as when the GMM sit on top of each other), there are several potential changes the user can make:
+
+	(1) Change the package used to create the GMM. bgmm is the default but mixtools can also be used
+	
+	(2) Increase the minimal number of clusters to use. This will prevent the GMM from being trapped in a local minima.
+
+	(3) Eyeball the predicted cutoff and enter it manually
+
+Any of these methods could be used, but we propose following the suggestions in the order listed
+
+
+## Citing GGRaSP
 
 When using GGRaSP in your analysis, please cite GGRaSP as follows:
 ```
