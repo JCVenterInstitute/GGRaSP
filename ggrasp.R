@@ -71,7 +71,7 @@ usage = paste (
   "\nUsage:\n\n", script_name, "\n\n",
   "\n# Input Variables\n",
   "\t-i, --input <input file name for tab delimited distance matrix with row and column headers, newick file, or aligned multiple fasta file>\n",
-  "\t-t, --type <type of the tree format to makes. Default is 'complete'>",
+  "\t-t, --type <type of the tree format to makes. Default is 'complete'>\n",
   "\t-d, --offset <optional offset to convert a similarity matrix to a distance matrix>\n",
   "\t-m, --method  <optional method to use for hclust such as complete, single or average or nj to perform neighbor-joining>\n",
   "\t-v, --verbose <optional verbal threshold: 1 = no output, 2 = text only, 3 = graphics in pdf. Default = 3>\n",
@@ -82,17 +82,16 @@ usage = paste (
   "\t-h, --threshold <optional threshold to use to cluster the genomes>\n",
   "\t-k, --keep <optional flag to keep all reference clusters as sub-and show subclusters>\n",
   "\t-z, --zscore <optional value to combine all gaussian mixtures within this z-score. Default = 1. Use 0 to turn off>\n",
-  "\t-a, --metadata <optional input file containing metadata for the genomes. It should be tab-deleniated>\n",
+  "\t-a, --metadata <optional input file containing metadata for the genomes. It should be tab-delineated>\n",
   "\t-x, --minlambda <optional value used to discard a Gaussian distribution if it has less than this percentage of the total distribution. Default is 0.005>\n",
   "\t-s, --start <optional value with the minimum number of gmm to examine. Default is 2>\n",
   "\t-e, --end <optional value with the maximum number of gmm to examine. Default is 10>\n",
-  "\t-p, --packages <optional value with the package to use for the Gaussian mixture model estimate. Default is bgmm. \n",	
+  "\t-p, --packages <optional value with the package to use for the Gaussian mixture model estimate. Default is bgmm.\n",
   "\n# Output Variables\n",
   "\t-o, --output <output file name for html table, pdf plots, cluster and txt files>\n",
-
   "\t-l, --layout <optional phylogeny layout such as rectangular, circular, radial and slanted. Default = circular>\n", 
  "\t-0, --writetable <optional flag used to save the cluster table>\n",	
-  "\t-1, --writepseudo <optional flag used to save the psuedo fasta lsit>\n",	
+  "\t-1, --writepseudo <optional flag used to save the pseudo-fasta list>\n",
   "\t-2, --writetree <optional flag used to save the cluster table>\n",	
   "\t-3, --writetree <optional flag used to save the cluster table>\n",	
   "\t-4, --writetree <optional flag used to save the cluster table>\n",	 
@@ -103,11 +102,10 @@ usage = paste (
   "\t-9, --plottrim <optional flag used to save the trimmed tree with only the medoids>\n",	
   "\t-y, --plottype <optional flag used to provide the plot format>\n",	
 
-  "This script will select sample genome medoids by selecting a treshhold using Gaussian Mixture Models.\n",
+  "This script will select sample genome medoids by selecting a threshold using Gaussian Mixture Models.\n",
   "\n",
   "\n");
 
-is.binary.tree = is.binary;
 if(!length(opt$input))
 {
   
@@ -369,7 +367,7 @@ if(!is.null(opt$writetrimtree))
 	}
 	
 	file.name <- paste(OutputFileName, "tree", "trim", "txt", sep=".");
-	ggrasp.write(x = gg.2, type = "tree", rank.level = opt$writetrimtree, file=file.name);
+	ggrasp.write(x = gg.2, type = "trimmed", rank.level = opt$writetrimtree, file=file.name);
 }
 
 if(!is.null(opt$writeitol))

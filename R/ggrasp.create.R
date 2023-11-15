@@ -60,10 +60,6 @@ requireNamespace("bgmm");
 requireNamespace("colorspace");
 requireNamespace("methods");
 	phy = NULL;
-	#if (!exists("is.binary.tree", mode="function"))
-	#{
-	#	is.binary.tree <- is.binary;
-	#}
 	if (missing(file))
 	{
 		cat("Please enter in a file");
