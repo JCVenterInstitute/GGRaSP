@@ -8,4 +8,6 @@ Depends: R(>= 3.1.0)
 Imports: ggplot2, mixtools, ape, bgmm, colorspace, methods
 License: GPL-2
 LazyData: False
+URL: https://github.com/JCVenterInstitute/GGRaSP
+BugReports: https://github.com/JCVenterInstitute/GGRaSP/issues
 RoxygenNote: 6.0.1
