@@ -31,14 +31,14 @@ tree.file <- system.file("extdata", "Enter.kSNP.tree", package="ggrasp")
 Enter.tree <- ggrasp.load(tree.file, file.format = "tree");
 
 #Clustering the tree using a threshold estimated by Gaussian Mixture Models (GMMs)
-\donttest{Enter.tree.cluster <- ggrasp.cluster(Enter.tree)}
+\\donttest{Enter.tree.cluster <- ggrasp.cluster(Enter.tree)}
 
 
 #Use print to get a list of the medoids selected
-\donttest{print(Enter.tree.cluster)}
+\\donttest{print(Enter.tree.cluster)}
 
 #Re-clustering the tree using a threshold estimated by the GMMs but without the distribution
 #cleaning (i.e. removing the overlapping and low count distributions)
-\donttest{Enter.tree.reclust <- ggrasp.recluster(Enter.tree.cluster, z.limit=0, min.lambda = 0)}
+\\donttest{Enter.tree.reclust <- ggrasp.recluster(Enter.tree.cluster, z.limit=0, min.lambda = 0)}
 
 }
