@@ -45,7 +45,7 @@
 
 ggrasp.cluster = function(ggrasp.data, threshold, num.clusters, z.limit = 1, gmm.start = 2, gmm.max = 10, min.lambda=0.005, run.type="bgmm", left.dist = 1)
 {
-	if(missing("ggrasp.data") || class(ggrasp.data) != "ggrasp")
+	if(missing("ggrasp.data") || is(ggrasp.data) != "ggrasp")
 	{
 		cat("Required class GGRaSP data to be performed. Please run ggrasp.load() first\n");
 		return();
@@ -223,7 +223,7 @@ ggrasp.addRanks = function(x, rank.file)
 
 ggrasp.recluster = function(x, z.limit=1, min.lambda=0.005, left.dist = 1)
 {
-	if (missing("x") || class(x) != "ggrasp")
+	if (missing("x") || is(x) != "ggrasp")
 	{
 		cat("");
 		return();

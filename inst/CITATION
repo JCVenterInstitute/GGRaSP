@@ -1,8 +1,8 @@
 citHeader("To cite GGRaSP in publications use:")
 
-citEntry(entry = "Article",
+bibentry(entry = "Article",
   title        = "GGRaSP: a R-package for selecting representative genomes using Gaussian mixture models",
-  author       = personList(as.person("Thomas H Clarke"),
+  author       = c(as.person("Thomas H Clarke"),
                    as.person("Lauren M Brinkac"),
                    as.person("Granger Sutton"),
                    as.person("Derrick E Fouts")),
